@@ -1,0 +1,24 @@
+.fchar \[u21d2] \[rA]  \" double arrow
+.char \[u2006] \|     \" thin space
+.nr german-new-hyphenation-patterns 1
+.EH ''\(em\\|\\|%\\|\\^\(em''
+.OH ''\(em\\|\\|%\\|\\^\(em''
+.nr hD 0.4v
+.nr PD 0
+.nr was_heading 0
+.am @NH
+.  nr was_heading 1
+..
+.am @SH
+.  nr was_heading 1
+..
+.de par*start
+.ds@auto-end
+.nr \\n[.ev]:pli \\$1
+.nr \\n[.ev]:pri \\$2
+.par@reset
+.if \\n[was_heading] .sp \\n[hD]u
+.sp \\n[\\n[.ev]:PD]u
+.ne \\n[PORPHANS]v+\\n(.Vu
+.nr was_heading 0
+..
