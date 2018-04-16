@@ -6,7 +6,7 @@
 .nr TABLE 0 1 \" register for image number, autoincrement
 .\" Future groff will not need this:
 .if !r PDFPIC_NOSPACE\{\
-.  tm Redefining PDFPIC to behave like PSPIC
+.  \" tm Redefining PDFPIC to behave like PSPIC
 .  am PDFPIC
 .    ie '\\*[.T]'pdf' \{\
 .      sp \\n[pdf-desht]u
@@ -18,7 +18,7 @@
 .      nr PIC-WID \\n[ps-deswid]
 .    \}
 .  .
-\}
+.\}
 .de ANYPIC
 .\"  br
 .  nr FILLED_BEFORE \\n[.u]
