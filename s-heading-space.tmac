@@ -1,3 +1,15 @@
+.nr CITE_SIZE 875
+.de RESCALE_LINE
+.nr VS \\n(PS*\\n[linescale]/1000u
+..
+.de RESCALE_FOOT
+.if t \{\
+.  nr FL \n[LL]u
+.  nr FPS \n(PS*8/10u
+.  nr FVS \n(PS*\n[linescale]*8/10/1000u
+.\}
+.if n .nr FPS \n[PS]u
+..
 .fchar \[u21d2] \[rA]  \" double arrow
 .char \[u2006] \|     \" thin space
 .nr german-new-hyphenation-patterns 1
@@ -21,4 +33,42 @@
 .sp \\n[\\n[.ev]:PD]u
 .ne \\n[PORPHANS]v+\\n(.Vu
 .nr was_heading 0
+.ie \\n[\\n[.ev]:il] \{\
+.fam \\*[citefam]
+.\}
+..
+.de @RS
+.br
+.nr \\n[.ev]:li!\\n[\\n[.ev]:il] \\n[\\n[.ev]:li]
+.nr \\n[.ev]:ri!\\n[\\n[.ev]:il] \\n[\\n[.ev]:ri]
+.nr \\n[.ev]:ai!\\n[\\n[.ev]:il] \\n[\\n[.ev]:ai]
+.nr \\n[.ev]:pli!\\n[\\n[.ev]:il] \\n[\\n[.ev]:pli]
+.nr \\n[.ev]:pri!\\n[\\n[.ev]:il] \\n[\\n[.ev]:pri]
+.nr \\n[.ev]:il +1
+.nr \\n[.ev]:li +\\n[\\n[.ev]:ai]
+.nr \\n[.ev]:ai \\n[\\n[.ev]:PI]
+.nr \\n[.ev]:LL -\\n[\\n[.ev]:PI]
+.par@reset
+.sp 0.5
+.nr PS_ALT \\n(PS
+.nr PS \\n[PS]*\\n[CITE_SIZE]/1000u
+.RESCALE_LINE
+..
+.de @RE
+.br
+.sp 0.5
+.ie \\n[\\n[.ev]:il] \{\
+.	nr \\n[.ev]:il -1
+.	nr \\n[.ev]:ai \\n[\\n[.ev]:ai!\\n[\\n[.ev]:il]]
+.	nr \\n[.ev]:li \\n[\\n[.ev]:li!\\n[\\n[.ev]:il]]
+.	nr \\n[.ev]:ri \\n[\\n[.ev]:ri!\\n[\\n[.ev]:il]]
+.	nr \\n[.ev]:pli \\n[\\n[.ev]:pli!\\n[\\n[.ev]:il]]
+.	nr \\n[.ev]:pri \\n[\\n[.ev]:pri!\\n[\\n[.ev]:il]]
+.       nr \\n[.ev]:LL +\\n[\\n[.ev]:PI]
+.nr PS \\n[PS_ALT]
+.RESCALE_LINE
+.\}
+.el .@error unbalanced \\$0
+.ie '\\$0'QE' .par*start 0 0
+.el .par@reset
 ..

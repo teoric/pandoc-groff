@@ -1,0 +1,17 @@
+.\"if !d citefam .ds citefam \n[.fam]
+.de citescale
+.fzoom \\*[citefam]R  \\$1
+.fzoom \\*[citefam]I  \\$1
+.fzoom \\*[citefam]B  \\$1
+.fzoom \\*[citefam]R  \\$1
+..
+.\" very rough heuristics:
+.nr citescale 1000
+.if '\n[.fam]'Charis' .nr citescale \n[citescale]*21/20u
+.if '\n[.fam]'N' .nr citescale \n[citescale]*22/20u
+.if !'\*[citefam]'SourceSans' \{\
+.  ie '\*[citefam]'Arev' .nr citescale \n[citescale]*17/20u
+.  el .nr citescale \n[citescale]*23/25u
+.\}
+.tm citescale: \n[citescale]
+.citescale \n[citescale]
