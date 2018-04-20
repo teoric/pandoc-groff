@@ -10,8 +10,9 @@
 .\}
 .if n .nr FPS \n[PS]u
 ..
-.fchar \[u21d2] \[rA]  \" double arrow
-.char \[u2006] \|     \" thin space
+.fchar \[u21d2] \[rA]\" double arrow
+.char \[u2006] \|\" thin space
+.char \[u200B] \h'0u'\" zero-width space
 .nr german-new-hyphenation-patterns 1
 .EH ''\(em\\|\\|%\\|\\^\(em''
 .OH ''\(em\\|\\|%\\|\\^\(em''
