@@ -1,0 +1,22 @@
+.\" Gesperrte Schrift
+.de SPERR
+.  nr OLD_LG \\n[.lg]
+.  lg 0
+.  ns
+.  tkf R  3 .2p 120 8p
+.  tkf I  3 .2p 120 8p
+.  tkf B  3 .2p 120 8p
+.  tkf BI 3 .2p 120 8p
+.  if \\n[.k]-\\n[PO]>0 \h'0.166n'\c
+.  ie !'\\$2'' \\$1\c
+.  ie !'\\$2'' \\$1\c
+.  el \\$1\c
+.    tkf R 5 0 60 0
+.    tkf I 5 0 60 0
+.    tkf B 5 0 60 0
+.    tkf BI 5 0 60 0
+.  if !'\\$2'' \\$2
+.  rs
+.  lg \n[OLD_LG]
+.  rn OLD_LG
+..

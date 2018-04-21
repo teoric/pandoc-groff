@@ -1,0 +1,14 @@
+.\" if normal family is xx, use xxSC family for small caps
+.tm \n[fam]
+.de smallcaps
+.nr OLD_LG \\n[.lg]
+.ds OLD_FAM \n[.fam]
+.fam \n[.fam]SC
+..
+.de /smallcaps
+.lg \\n[OLD_LG]
+.rn OLD_LG
+.fam \\*[OLD_FAM]
+.rs OLD_FAM
+..
+.mso scap.tmac

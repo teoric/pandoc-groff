@@ -1,0 +1,8 @@
+.de SCAP
+.if !'\\$3'' \\$3\c
+.smallcaps
+.ie !'\\$2'' \\$1\c
+.el \\$1\c
+./smallcaps
+.if !'\\$2'' \\$2
+..
