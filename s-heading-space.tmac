@@ -10,8 +10,25 @@
 .\}
 .if n .nr FPS \n[PS]u
 ..
+.de SAVE_SIZE
+.  nr PS_GENERAL \\n[PS]
+.  nr PD_GENERAL \\n[PD]
+..
+.SAVE_SIZE
+.de RESTORE_SIZE
+.  if r PS_GENERAL .nr PS \\n[PS_GENERAL]
+.  if r PD_GENERAL .nr PD \\n[PD_GENERAL]
+.  RESCALE_LINE
+..
+.de REF_SIZE
+.  SAVE_SIZE
+.  nr PS \\n[PS]*\\n[CITE_SIZE]/1000
+.  RESCALE_LINE
+.  nr PD 0.166v
+..
 .fchar \[u21d2] \[rA]\" double arrow
 .char \[u2006] \|\" thin space
+.char \[u2009] \h'0.25n'\" thin space
 .char \[u200B] \h'0u'\" zero-width space
 .nr german-new-hyphenation-patterns 1
 .EH ''\(em\\|\\|%\\|\\^\(em''
@@ -34,9 +51,24 @@
 .sp \\n[\\n[.ev]:PD]u
 .ne \\n[PORPHANS]v+\\n(.Vu
 .nr was_heading 0
-.ie \\n[\\n[.ev]:il] \{\
-.fam \\*[citefam]
+.if \\n[IN_QUOTE] \{\
+.  fam \\*[citefam]
 .\}
+..
+.nr IN_QUOTE 0 1
+.de STARTQUOTE
+.  nr IN_QUOTE +1
+.  if \\n[SCALE_QUOTE] \{\
+.    nr PSQ\\n[IN_QUOTE] \\n[PS]u\" remember point size
+.  \}
+..
+.de ENDQUOTE
+.  if \\n[SCALE_QUOTE] \{\
+.    nr PS \\n[PSQ\\n[IN_QUOTE]]u\"  restore point size
+.    RESCALE_LINE
+.    rn PSQ\\n[IN_QUOTE]
+.\}
+.  nr IN_QUOTE -1
 ..
 .de @RS
 .br
@@ -48,16 +80,23 @@
 .nr \\n[.ev]:il +1
 .nr \\n[.ev]:li +\\n[\\n[.ev]:ai]
 .nr \\n[.ev]:ai \\n[\\n[.ev]:PI]
-.nr \\n[.ev]:LL -\\n[\\n[.ev]:PI]
+.if \\n[IN_QUOTE] \{\
+.  nr \\n[.ev]:LL -\\n[\\n[.ev]:PI]
+.\}
 .par@reset
-.sp 0.5
-.nr PS_ALT \\n(PS
-.nr PS \\n[PS]*\\n[CITE_SIZE]/1000u
-.RESCALE_LINE
+.if \\n[IN_QUOTE] \{\
+.  sp 0.5
+.  if \\n[SCALE_QUOTE] \{\
+.    nr PS \\n[PS]*\\n[CITE_SIZE]/1000u\" Scale quote font
+.    RESCALE_LINE
+.  \}
+.\}
 ..
 .de @RE
 .br
-.sp 0.5
+.if \\n[IN_QUOTE] \{\
+.  sp 0.5
+.\}
 .ie \\n[\\n[.ev]:il] \{\
 .	nr \\n[.ev]:il -1
 .	nr \\n[.ev]:ai \\n[\\n[.ev]:ai!\\n[\\n[.ev]:il]]
@@ -65,9 +104,9 @@
 .	nr \\n[.ev]:ri \\n[\\n[.ev]:ri!\\n[\\n[.ev]:il]]
 .	nr \\n[.ev]:pli \\n[\\n[.ev]:pli!\\n[\\n[.ev]:il]]
 .	nr \\n[.ev]:pri \\n[\\n[.ev]:pri!\\n[\\n[.ev]:il]]
-.       nr \\n[.ev]:LL +\\n[\\n[.ev]:PI]
-.nr PS \\n[PS_ALT]
-.RESCALE_LINE
+.       if \\n[IN_QUOTE]\{\
+.         nr \\n[.ev]:LL +\\n[\\n[.ev]:PI]
+.       \}
 .\}
 .el .@error unbalanced \\$0
 .ie '\\$0'QE' .par*start 0 0
