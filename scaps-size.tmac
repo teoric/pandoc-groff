@@ -1,0 +1,16 @@
+.tm \n[.height]
+.de smallcaps
+.nr OLD_LG \\n[.lg]
+.nr CAP_SIZE \\n[.s]*875
+.ps \\n[CAP_SIZE]/1000u
+.nr CAP_HEIGHT 875*\\n[.s]
+\\H'\\n[CAP_HEIGHT]u'\c
+\c
+..
+.de /smallcaps
+.ps
+.lg \\n[OLD_LG]
+.rn OLD_LG
+\H'0'\c
+..
+.mso scap-size.tmac
