@@ -4,9 +4,9 @@
 ..
 .de RESCALE_FOOT
 .if t \{\
-.  nr FL \n[LL]u
-.  nr FPS \n(PS*8/10u
-.  nr FVS \n(PS*\n[linescale]*8/10/1000u
+.  nr FL \\n[LL]u
+.  nr FPS \\n(PS*8/10u
+.  nr FVS \\n[FPS]*\\n[linescale]/1000u
 .\}
 .if n .nr FPS \n[PS]u
 ..
