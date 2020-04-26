@@ -1,23 +1,25 @@
 .\" .cflags 0 . ! ?
-.if '\*[Litb]'' .ds Litb "Table"
-.if '\*[Lifg]'' .ds Lifg "Figure"
+.if '\*[Litb]'' .ds Litb Table
+.if '\*[Lifg]'' .ds Lifg Figure
 .\" **** PICs *****************************************************
 .nr IMAGE 0 1 \" register for image number, autoincrement
 .nr TABLE 0 1 \" register for image number, autoincrement
 .\" Future groff will not need this:
-.if !r PDFPIC_NOSPACE\{\
-.  \" tm Redefining PDFPIC to behave like PSPIC
-.  am PDFPIC
-.    ie '\\*[.T]'pdf' \{\
-.      sp \\n[pdf-desht]u
-.      nr PIC-HT \\n[pdf-desht]
-.      nr PIC-WID \\n[pdf-deswid]
-.    \}
-.    el \{\
-.      nr PIC-HT \\n[ps-desht]
-.      nr PIC-WID \\n[ps-deswid]
-.    \}
-.  .
+.if ((\n[.x]<2)&&(\n[.y]<24)) \{
+.  if !r PDFPIC_NOSPACE \{\
+.    \" tm Redefining PDFPIC to behave like PSPIC
+.    am PDFPIC
+.      ie '\\*[.T]'pdf' \{\
+.        sp \\n[pdf-desht]u
+.        nr PIC-HT \\n[pdf-desht]
+.        nr PIC-WID \\n[pdf-deswid]
+.      \}
+.      el \{\
+.        nr PIC-HT \\n[ps-desht]
+.        nr PIC-WID \\n[ps-deswid]
+.      \}
+.    .
+.  \}
 .\}
 .de ANYPIC
 .\"  br
@@ -64,12 +66,17 @@
 .      tm ---- W:  \\$4 [= \\n[PICWIDTH_O]u] -> \\n[PICWIDTH]u   H: \\$5 [= \\n[PICHEIGHT_O]] -> \\n[PICHEIGHT]u
 .      tm
 .    \}
+.\" If anything goes wrong with zero-size graphics and grep complaining
+.\" about binary input, and if your grep supports the -a flag,
+.\" apply groff-patch//pdfpic.patch to your groff's pdfpic.tmac
+.\"  tm PDFPIC \\*[ORIENT] \\$3 \\n[PICWIDTH]u \\n[PICHEIGHT]u
 .    PDFPIC \\*[ORIENT] \\$3 \\n[PICWIDTH]u \\n[PICHEIGHT]u
 .  \}
-.el
-.PDFPIC \\*[ORIENT] \\$3 \\$4 \\$5
+.el \{\
+.    PDFPIC \\*[ORIENT] \\$3 \\$4 \\$5
+.  \}
 .\"  nr IMAGE +1
-.  nr PI \n[OLD_PI]
+.  nr PI \\n[OLD_PI]
 .  if !'\\$2'' \{\
 .    if \\n[FILLED_BEFORE] .fi
 .    QP

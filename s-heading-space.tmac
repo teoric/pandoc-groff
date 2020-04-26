@@ -1,11 +1,12 @@
 .nr CITE_SIZE 875
+.nr FOOT_SIZE 818
 .de RESCALE_LINE
 .nr VS \\n(PS*\\n[linescale]/1000u
 ..
 .de RESCALE_FOOT
 .if t \{\
 .  nr FL \\n[LL]u
-.  nr FPS \\n(PS*8/10u
+.  nr FPS \\n(PS*\\n[FOOT_SIZE]u/1000
 .  nr FVS \\n[FPS]*\\n[linescale]/1000u
 .\}
 .if n .nr FPS \n[PS]u
@@ -83,7 +84,6 @@
 .if \\n[IN_QUOTE] \{\
 .  nr \\n[.ev]:LL -\\n[\\n[.ev]:PI]
 .\}
-.par@reset
 .if \\n[IN_QUOTE] \{\
 .  sp 0.5
 .  if \\n[SCALE_QUOTE] \{\
@@ -91,6 +91,8 @@
 .    RESCALE_LINE
 .  \}
 .\}
+.\" does the following cause problems?  Was before .if
+.par@reset
 ..
 .de @RE
 .br
